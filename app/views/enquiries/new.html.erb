@@ -1,0 +1,25 @@
+<div class="offset3 ">
+  <div class="span8 offset1">
+    <h1>Enquire: <%= @user.name %></h1>
+    <%= form_for(@enquiry, url: enquire_path(user_id: @user.long_id),
+                  html: { method: :post }) do |f| %>
+      <div class="field">
+        <%= f.label :name %><small> your name</small>
+        <%= f.text_field :name, required: :required %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email %><small> your contact email</small>
+        <%= f.email_field :email, required: :required %>
+      </div>
+
+      <div class="field">
+        <%= f.label :message %>
+        <%= f.text_area :message, cols: 20, rows: 6, required: :required %>
+      </div>
+      <div class="actions">
+        <%= f.submit 'Submit', class: "btn btn-large btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

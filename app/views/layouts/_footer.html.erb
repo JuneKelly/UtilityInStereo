@@ -1,0 +1,18 @@
+<div class="row-fluid">
+<footer class="footer">
+  <small>
+  </small>
+  <nav>
+    <ul>
+      <li><%= link_to "About",    '#' %></li>
+      <li><%= link_to "Dev-Blog", 'http://shanekilkelly.tumblr.com' %></li>
+      <li><%= link_to "Contact",  contact_us_path %></li>
+    </ul>
+  </nav>
+</footer>
+  <% if !Rails.env.production? %>
+    <div class="span7">
+      <!--<%= debug(params) %>-->
+    </div>
+  <% end %>
+</div>

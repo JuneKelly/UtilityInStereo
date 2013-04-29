@@ -1,0 +1,26 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <%= link_to "Utility In Stereo", root_path, id: "logo" %>
+      <nav>
+        <ul class="nav pull-right">
+          <% if logged_in? %>
+            <li><%= link_to current_user.name, user_path(current_user) %></li>
+            <li><%= link_to "User Guide",  user_guide_path %></li>
+            <% if current_user.is_admin == true && 
+                  current_user.account_type == "admin" %>
+                <li><%= link_to "All Users", all_users_path %></li>
+            <% end %>
+            <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "Home",     root_path %></li>
+            <li><%= link_to "Plans and Pricing", plans_path %></li>
+            <li><%= link_to "Contact",  contact_us_path %></li>
+            <li><%= link_to "User Guide",  user_guide_path %></li>
+            <li><%= link_to "Log In",    login_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header><!-- END header -->

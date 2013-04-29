@@ -1,0 +1,73 @@
+<div class="row-fluid">
+  <div class="phase-long item-box">
+    <header>
+      <h1><%= link_to @phase.project.title, 
+              project_path(@phase.project) %> : <%= @phase.title %></h1>
+      <div class="actions pull-right">
+        <% if @phase.project.is_done == false %>
+          <%= link_to "Edit", edit_phase_path(@phase), :class =>
+                              'btn btn-primary' %>
+        <% end %>
+        <% if @phase.is_done == false %>
+        <%= link_to 'Mark Phase As Done', 
+                      phase_done_path(@phase), method: :post,
+                      data: { confirm: "Really mark this phase as done?" }, 
+                      :class => 'btn btn-success' %>
+        <% end %>
+      </div>
+    </header>
+    <div class="row-fluid phase-main-content">
+      <div class="span6 phase-misc">
+        <div class="of-project">
+          Of Project: <%= link_to @phase.project.title, 
+                                  project_path(@phase.project) %>
+        </div>
+        <div>
+          <% if @phase.is_done %>
+            This Phase is Done!
+          <% else %>
+            Not Done :(
+          <% end %>
+        </div>
+        <div>
+          <% if @phase.is_flat_rate %>
+            Charging a flat rate of: <%= @phase.flat_rate %>
+          <% else %>
+            Not charging a flat rate
+          <% end %>
+        </div>
+        <div>
+          Due Date: <%= @phase.due_date %>
+        </div>
+      </div>
+      <div class="span5 phase-details">
+        <% if @phase.details.nil? %>
+          <em>No details</em>
+        <% else %>
+          <p>
+            <%=raw sanitize(simple_format(@phase.details), tags: %w(br p) ) %>
+          </p>
+        <% end %>
+      </div>
+      <div class="row-fluid task-list">
+        <header>
+          <h2>Tasks For This Phase:</h2>
+          <div class="actions">
+            <% if @phase.is_done == false && @phase.project.is_done == false %>
+            <%= link_to 'New Task', new_phase_task_path(@phase), 
+                        :class => 'btn btn-mini btn-info' %>
+            <% end %>
+          </div>
+        </header>
+        <div class="span8">
+          <% @tasks.each do |task| %>
+            <div class="task-wrapper">
+              <%= render task %>
+            </div>
+          <% end %>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

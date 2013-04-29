@@ -1,0 +1,24 @@
+<div class="row-fluid">
+<div class="span6 offset1">
+  <h1>Create Client</h1>
+  <%= form_for @client do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="field">
+      <%= f.label :name %><small>(of the artist, band, studio...)</small>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :description %>
+      <small>(who are they, where are they from?)</small>
+      <%= f.text_area :description, cols: 40, rows: 6  %>
+    </div>
+    <div class="field">
+      <%= f.label :website %><small>(their primary website)</small>
+      <%= f.text_field :website %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Create', class: "btn btn-large btn-primary" %>
+      <%= link_to "Cancel", clients_path, class: "btn btn-large" %>
+    </div>
+  <% end %>
+</div>

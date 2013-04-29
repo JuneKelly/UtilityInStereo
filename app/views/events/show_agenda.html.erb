@@ -1,0 +1,25 @@
+<div class="row-fluid">
+  <header id="agenda-header">
+    <h1 class="">Agenda</h1>
+    <%= link_to "New Event", new_event_path, :class => 'pull-right btn btn-success' %>
+  </header>
+  <div class="events-list">
+    <h2>Soon</h2>
+    <% if !@soon_events.empty? %>
+      <% @soon_events.each do |event| %>
+        <%= render event %>
+      <% end %>
+    <% else %>
+      No events today.
+    <% end %>
+  </div>
+
+  <div class="events-list">
+    <h2>Later</h2>
+    <% if @later_events %>
+      <% @later_events.each do |event| %>
+        <%= render event %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

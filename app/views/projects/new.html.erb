@@ -1,0 +1,63 @@
+<div class="row-fluid">
+  <h1>New Project with <%= @client.name %></h1>
+  <div class="project-form span7">
+    <%= form_for [@client, @project] do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title , :class => 'input-large' %>
+      </div>
+      <div class="field">
+        <%= f.label :details %>
+        <%= f.text_area :details, cols: 40, rows: 6, :class => 'input-large' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :template %>
+        <small> (Select a template for your project phases)</small>
+        <% @templates = [
+              'none', 
+              'preproduction - tracking - editing - mixing - mastering',
+              'preproduction - tracking - editing - mixing',
+              'preproduction - tracking - editing',
+              'preproduction - tracking',
+              'mixing - mastering',
+              'editing - mixing - mastering',
+              'editing - mixing'
+            ] %>
+        <%= select_tag "template_type", 
+                          options_for_select(@templates, 'none'),
+                          class: 'wide-box' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :quotation %> <small>(estimated cost of project)</small>
+        <%= f.number_field :quotation %>
+      </div>
+      <div class="field">
+        <%= f.label :hourly_rate %> 
+        <small>(your hourly rate, if relevant)</small>
+        <%= f.number_field :hourly_rate %>
+      </div>
+      <div class="field">
+        <%= f.label :deposit %> <small>(the deposit for this project)</small>
+        <%= f.number_field :deposit %>
+      </div>
+      <div class="field">
+        <%= f.label :deadline %> <small>(mm/dd/yyyy)</small>
+        <%= f.text_field :deadline, :class => "datepicker" %>
+      </div>   
+      <div class="field">
+        <%= f.label :"Has client view ?" %>
+        <%= f.check_box :has_client_view, :class => "check-styled" %>
+        <small>(a page for the client to see?)</small>
+      </div>
+
+      <div class="actions input-append">
+        <%= f.submit 'Create',  class: "btn btn-large btn-primary" %>
+        <%= link_to 'Cancel', client_path(@client), class: "btn btn-large" %>
+      </div>   
+    <% end %>
+  </div>
+</div>

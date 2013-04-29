@@ -1,0 +1,26 @@
+<div class="row-fluid">
+  <h1>Edit Task for <%= link_to @task.phase.title, 
+                                phase_path(@task.phase) %></h1>
+  <div class="span6 task-form">
+    <%= form_for @task do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </div>
+
+      <div class="field">
+        <%= f.label :"Done ?" %>
+        <%= f.check_box :is_done, class: "check-styled" %>
+      </div>
+
+      <div class="actions input-append">
+        <%= f.submit 'Save',  class: "btn btn-large btn-primary" %>
+        <%= link_to 'Cancel', phase_path(@task.phase), class: "btn btn-large" %>
+        <%= link_to 'Delete', task_path(@task), method: :delete,
+                    data: { confirm: "Are You Sure?"},
+                    :class => 'btn btn-large btn-danger' %>
+      </div>
+    <% end %>
+  </div>
+</div>

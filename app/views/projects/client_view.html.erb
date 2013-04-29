@@ -1,0 +1,33 @@
+<div class="container"> 
+  <div class="client-view">
+    <div class="row-fluid ">
+      <header>
+        <h1><%= @project.title %></h1> <small> with: <%= @user.name %></small>
+      </header>
+      <% if @project.client_view_message != nil &&
+            !@project.client_view_message.blank? %>
+        <div class="message-container item-box">
+          <p>
+            <%=raw sanitize(simple_format(@project.client_view_message),
+                            tags: %w(br p) ) %>
+          </p>
+        </div>
+      <% end %>
+      <div class="events-container">
+        <h3>Upcoming Events</h3>
+        <% @project_events.each do |e| %>
+          <div class="events-list">
+            <%= render partial: "events/public_event", locals: { event: e } %>
+          </div>
+            
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+  <div id="scripts">
+    <script type="text/javascript">
+      $("#sidebar").hide();
+    </script>
+  </div>
+</div>

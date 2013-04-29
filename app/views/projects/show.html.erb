@@ -1,0 +1,121 @@
+<div class="row-fluid ">
+  <div class="project-long item-box">
+    <header>
+      <div class="header-left span5">
+        <h1><%= @project.title %></h1>
+        <div class="actions btn-group">
+          <% if @project.is_done == false %>
+            <%= link_to "Edit", edit_project_path(@project), :class =>
+                        'btn btn-mini btn-primary' %>
+            <%= link_to "Mark Project As Done", project_done_path(@project),
+                          method: :post, :class => 'btn btn-mini btn-success',
+                          data: { confirm: "Really mark this Project as Done?" } %>
+          <% else %>
+            <%= link_to "Un-Archive", project_unarchive_path(@project),
+                          method: :post, :class => 'btn btn-mini btn-primary',
+                          data: { confirm: "Really unarchive this Project?" } %>
+          <% end %>
+        </div>
+      </div>
+      <div class="header-right span7">
+        <div class="progress-wrapper pull-right">
+          <% total_pixels = 400 %>
+          <% if @percent_complete > 0
+              x = (1.0 / @percent_complete) * 100
+              pixels_green = (total_pixels / x).to_i
+            else 
+              pixels_green = 0
+            end %>
+          <% pixels_red = total_pixels - pixels_green %>
+          <div class="progress-green btn-success" 
+                style="width: <%= pixels_green %>px;">
+          </div>
+          <div class="progress-red btn-danger"
+                style="width: <%= pixels_red %>px;">
+          </div>
+        </div>
+      </div>
+    </header>
+    
+    <div class="row-fluid project-main-content">
+      <div class="span6 project-misc">
+        <div class="with-client"><strong>Client: </strong><h3>
+          <small><%= link_to @project.client.name, 
+                          client_path(@project.client) %></small></h3></div>
+          <div>
+            <% if @project.is_done %>
+              <strong>This Project is Done!</strong>
+            <% else %>
+              <strong>Not Done</strong> but
+                <%= number_to_percentage(@percent_complete, precision: 2) %> done
+            <% end %>
+          </div>
+          <div>
+            <strong>Quotation: </strong><%= @project.quotation %>
+            <% if @project.is_paid_in_full %>
+              (fully paid)
+            <% else %>
+              (not fully paid)
+            <% end %>
+          </div>
+          <div>
+            <strong>Deadline: </strong><%= @project.deadline %>
+          </div>
+          <div>
+            <strong>Deposit: </strong><%= @project.deposit %>
+            <% if @project.deposit_paid %>
+              (paid)
+            <% else %>
+              (not paid)
+            <% end %>
+          </div>
+          <div>
+            <% if !@hours.nil? %>
+              Approximately <%= @hours %> hours scheduled
+            <% end %>
+          </div>
+          <div>
+            <% if @project.has_client_view %>
+              <%= link_to "Client View Preview",
+                  project_client_view_path(id: @project.long_id), target: :blank %>
+            <% end %>
+          </div>
+      </div>
+      <div class="span5 project-details">
+        <p>
+          <% if @project.details.empty? || @project.details == nil %>
+            <h2>No Details</h2>
+          <% else %>
+            <%=raw sanitize(simple_format(@project.details), tags: %w(br p) ) %>
+          <% end %>
+        </p>
+      </div>
+      <div class="row-fluid phase-list">
+        <header>
+          <h2>Phases For This Project:</h2>
+          <div class="actions">
+            <% if @project.is_done == false %>
+              <%= link_to 'New Phase', new_project_phase_path(@project), 
+                          :class => 'btn btn-mini btn-info' %>
+            <% end %>
+          </div>
+        </header>
+        <% if @phases.empty? %>
+          <h2>No Phases</h2>
+        <% end %>
+        <% @phases.each do |phase| %>
+          <%= render phase %>
+        <% end %>
+        <div>
+        <% if @phases.count > 0 && @project.is_done == false %>
+          <%= link_to 'Re-order Phases',
+              project_reorder_phases_path(@project.id), method: :get,
+              class: 'btn' %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <%= link_to "<< Back To Projects", projects_path %>
+</div>

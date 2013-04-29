@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Utility In Stereo</title>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <link rel="shortcut icon" href="/favicon.ico" />
+</head>
+<body>
+    <%= render 'layouts/header' %>
+
+    <div  id="main-container" class="container-fluid"> <!-- main container -->
+      <div class="row-fluid">
+        <% if logged_in? %>
+          <div class="span2 sidebar-container" id="sidebar"> <!-- Sidebar -->
+            <div class="well sidebar-nav">
+              <ul class="nav nav-list">
+                <li class="nav-header">Navigation</li>
+                <li><%= link_to "Calendar", calendar_path %></li>
+                
+                <li><%= link_to "Clients", clients_path %></li>
+                <li><%= link_to "Projects", projects_path %></li>
+                <% new_enquiries = current_user.
+                                      enquiries.
+                                        where("viewed = ?", false).count %>
+                <% if new_enquiries > 0 %>
+                  <li><%= link_to "Enquiries (#{new_enquiries})", 
+                              enquiries_path %></li>
+                <% else %>
+                  <li><%= link_to "Enquiries", enquiries_path %></li>
+                <% end %>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        <% end %> <!-- END IF -->
+        <div class="span10" id="main-content"> <!-- content area -->
+          <div class="row-fluid">
+            <% flash.each do |key, value| %>
+              <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+            <% end %>
+            
+            <%= yield %><!-- content insert -->
+
+          </div>
+        </div>
+      </div> <!-- END row-fluid -->
+      <%= render 'layouts/footer' %>
+    </div><!-- END main content container -->
+</body>
+</html>

@@ -1,0 +1,9 @@
+<div class="events-list offset1">
+  <h1>Event:</h1>
+  <%= render @event %>
+  <p>
+    <%= link_to "<< Back to Calendar", 
+                calendar_path(year: @event.start_at.strftime("%Y"),
+                              month: @event.start_at.strftime("%m")) %>
+  </p>  
+</div>

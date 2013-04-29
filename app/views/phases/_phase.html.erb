@@ -1,0 +1,62 @@
+<%= div_for phase do %>
+  <div class="phase-wrapper span11">
+    <div class="phase-content span4">
+      <header>
+        <% if phase.is_done %>
+          <del>
+            <h2>
+              <strong>
+                <%= link_to phase.title, phase_path(phase), class: 'done-text' %>
+              </strong>
+              <% if !Rails.env.production? %><%= phase.order_index %><% end %>
+            </h2>
+          </del>
+        <% else %>
+          <h2>
+            <strong>
+              <%= link_to phase.title, phase_path(phase) %>
+            </strong>
+            <% if !Rails.env.production? %><%= phase.order_index %><% end %>
+          </h2>
+        <% end %>
+        <div>
+          Due Date: <% if phase.due_date != nil %>
+                      <%= phase.due_date %>
+                    <% else %>
+                      <small> none</small>
+                    <% end %>
+        </div>
+        <div class="phase-details">
+          <br />
+          <p>
+            <%= phase.details %>
+          </p>
+        </div>
+      </header>
+      <div class="btn-group phase-actions">
+        <% unless phase.is_done %>
+          <%= link_to 'Mark Phase As Done', phase_done_path(phase), method: :post,
+                      data: { confirm: "Really mark this phase as done?" },
+                      :class => 'btn btn-mini btn-success' %>
+          <%= link_to 'New Task', new_phase_task_path(phase), 
+                      :class => 'btn btn-mini btn-info' %>
+        <% end %>
+        <% unless phase.project.is_done %>
+          <%= link_to 'Edit', edit_phase_path(phase), 
+                      :class => 'btn btn-mini btn-warning' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="phase-tasks span8">
+      <% if phase.tasks.empty? %>
+        <h2>No Tasks</h2>
+      <% else %>
+        <% phase.tasks.order("created_at ASC").each do |task| %>
+          <div class="task-wrapper">
+            <%= render task %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

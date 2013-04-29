@@ -1,0 +1,26 @@
+<div class="row-fluid">
+  <div class="row">
+    <h1>
+      Re-order Phases for 
+      <%= link_to @project.title, project_path(@project) %>
+    </h1>
+  </div>
+  <div class="span5">
+    <% @phases.each do |phase| %>
+      <div class="item-box">
+          <h3> <%= phase.title %> </h3>
+          <% if phase.order_index == 0 %>
+            <%= link_to 'move down', phase_move_down_path(phase.id) %>
+          <% elsif phase.order_index == phase.project.phases.count - 1 %>
+            <%= link_to 'move up', phase_move_up_path(phase.id) %>
+          <% else %>
+            <%= link_to 'move up', phase_move_up_path(phase.id) %> | 
+            <%= link_to 'move down', phase_move_down_path(phase.id) %>
+          <% end %>
+        <br />
+      </div>
+    <% end %>
+    <br />
+    <%= link_to "Done", project_path(@project), class: "btn btn-primary pull-right" %>
+  </div>
+</div>

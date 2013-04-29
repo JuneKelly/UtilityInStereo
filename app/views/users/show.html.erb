@@ -1,0 +1,56 @@
+<div class="row-fluid">
+    <div id="user-dashboard">
+      <div class="span4 dash-left">
+        <header>
+          <h1><%= @user.name %>
+          <% if @user.is_admin == true %>
+            <small>(Admin!)</small>
+          <% end %>
+          </h1>
+          <br />
+          <div class="actions">
+            <%= link_to "Edit", edit_user_path(@user), 
+                        class: 'btn btn-mini btn-warning' %>
+          </div>
+        </header>
+        <section id="user-info">
+          <div class="user-email">
+            <p><strong>Email: </strong><%= @user.email %></p>
+          </div>
+          <p>
+            <strong><%= @active_projects_count %> Active Projects</strong> 
+            (<%= @projects.count %> in total)
+          </p>
+          <p>
+            <strong>Account type: </strong><%= @user.account_type %>
+            <% if @user.account_type == 'trial' %>
+              , expires <%= @user.trial_expire.to_date %>
+            <% end %>
+          </p>
+          <p>
+            <strong>Account status: </strong>
+            <% if @user.is_active == true %>
+              active
+            <% else %>
+              inactive
+            <% end %>
+          </p>
+        </section>
+      </div>
+      <div class="span8 dash-right">
+        <div class="events-list">
+          <h2>Upcoming Events</h2>
+          <% if !@events.empty? %>
+            <% @events.each do |event| %>
+              <%= render event %>
+            <% end %>
+          <% else %>
+            None :(
+          <% end %>
+          <p>
+            <%= link_to "<< Go to Calendar", calendar_path %>
+          </p>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<%= div_for client do %>  
+  <div class="item-box span10">
+    <h2><%= link_to client.name, client_path(client) %></h2>
+    <p>
+    </p>
+    <p>
+      <%= link_to client.website, client.website %>
+    </p>
+    <div class="actions btn-group">
+      <%= link_to "Edit", edit_client_path(client),
+                  :class => "btn btn-mini btn-primary" %>
+      <%= link_to "New Project with this Client",new_client_project_path(client),
+              :class => 'btn btn-mini btn-success' %>
+    </div>
+  </div
+<% end %>

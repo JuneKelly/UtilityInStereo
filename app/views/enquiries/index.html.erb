@@ -1,0 +1,34 @@
+<div class="row-fluid">
+  <header class="">
+    <div class="span4">
+      <h1>Enquiries</h1>
+    </div>
+    <div class="span7 pull-right">
+      <span class="">
+        <h3>Your Enquiry Form: </h3><br />
+        <p>
+          <%= link_to new_enquiry_url(user_id: current_user.long_id),
+              new_enquiry_url(user_id: current_user.long_id )%>
+        </p>
+          
+      </span>
+    </div>
+  </header>
+  
+    <div class="span6 enquiry-list">
+      <% if @enquiries.empty? %>
+        <small><h2>You have none</h2></small>
+      <% end %>
+      <% @enquiries.each do |enquiry| %>
+        <div class="item-box ">
+          <h2>
+            From: <%= link_to enquiry.name, enquiry_path(enquiry) %>
+            <% if enquiry.viewed != true %>
+              <small>(new)</small>
+            <% end %>
+          </h2>
+          <p>Recieved: <%= time_ago_in_words(enquiry.created_at) %> ago</p>
+        </div>
+      <% end %>
+    </div>
+</div>

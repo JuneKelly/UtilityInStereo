@@ -1,0 +1,67 @@
+<div class="row-fluid">
+  <h1>Edit Project</h1>
+  <div class="span8 project-form">
+    <%= form_for @project do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title , :class => 'input-large' %>
+      </div>
+      <div class="field">
+        <%= f.label :"Done ?" %> 
+        <%= f.check_box :is_done, :class => "check-styled" %>
+        <small>(check this box if you're done dealing with this nonsense)</small>
+      </div>
+      <div class="field">
+        <%= f.label :details %>
+        <%= f.text_area :details, cols: 40, rows: 6, :class => 'input-large' %>
+      </div>
+      <div class="field">
+        <%= f.label :quotation %> <small>(estimated cost of project)</small>
+        <%= f.number_field :quotation %>
+      </div>
+      <div class="field">
+        <%= f.label :"Paid in full ?" %>
+        <%= f.check_box :is_paid_in_full, :class => "check-styled" %>
+        <small>(has the client paid up?)</small>
+      </div>
+      <div class="field">
+        <%= f.label :hourly_rate %>
+        <small>(your hourly rate, if relevant)</small>
+        <%= f.number_field :hourly_rate %>
+      </div>
+      <div class="field">
+        <%= f.label :deposit %> <small>(the deposit for this project)</small>
+        <%= f.number_field :deposit %>
+      </div>
+      <div class="field">
+        <%= f.label :"Deposit paid ?" %> 
+        <%= f.check_box :deposit_paid, :class => "check-styled" %>
+        <small>(check this box if the client has paid the deposit)</small>
+      </div>
+      <div class="field">
+        <%= f.label :deadline %>
+        <small>(if this date seems close, you should get back to work)</small>
+        <%= f.text_field :deadline, :class => "datepicker" %>
+      </div>
+      <div class="field">
+        <%= f.label :"Has client view ?" %>
+        <%= f.check_box :has_client_view, :class => "check-styled" %>
+        <small>(a page for the client to see?)</small>
+      </div>
+      <div class="field">
+        <%= f.label :client_view_message %>
+        <%= f.text_area :client_view_message, cols: 40, rows: 6, 
+        :class => 'input-large' %>
+      </div>
+      <div class="actions input-append">
+        <%= f.submit 'Save',  class: "btn btn-large btn-primary" %>
+        <%= link_to 'Cancel', project_path(@project), class: "btn btn-large" %>
+        <%= link_to 'Delete Project', project_path(@project), method: :delete,
+                    data: { confirm: "Are You Sure?"},
+                    :class => 'btn btn-large btn-danger' %>
+      </div>   
+    <% end %>
+  </div>
+</div>

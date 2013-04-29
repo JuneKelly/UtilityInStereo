@@ -1,0 +1,58 @@
+<div class="event row">
+  <div class="event-content span10 item-box">
+
+    <div class="content-left span4">
+      <h3><%= link_to event.title, event_path(event) %>
+      </h3>
+      <div>
+        <strong>From:</strong>
+        <span>
+          <%= event.start_at.strftime("%Y-%m-%d %H:%M") %>
+        </span>
+      </div>
+      <div>
+        <strong>To:</strong>
+        <span>
+          <%= event.end_at.strftime("%Y-%m-%d %H:%M") %>
+        </span>
+      </div>
+      <div class="actions">
+        <%= link_to "Edit", edit_event_path(event),
+                    :class => 'btn btn-mini btn-primary' %>
+        <% if event.is_public == true %>
+          <small><em> (Public)</em></small>
+        <% else %>
+          <small><em> (Private)</em></small>
+        <% end %>
+      </div>
+    </div><!-- End Left -->
+
+    <div class="content-right span7">
+      <div class="event-details">
+        <% if !event.details.nil? && event.details.empty? %>
+          <small>No Details</small>
+        <% end %>
+        <p>
+          <%=raw sanitize(simple_format(event.details), tags: %w(br p) ) %>
+        </p>
+      </div>
+      <div class="event-task">
+
+      <span>
+        <% if event.task_id %>
+        <% task = event.task %>
+        <% phase = task.phase %>
+        <% project = phase.project %>
+        <% client = project.client %>
+        With: <%= link_to client.name, client_path(client) %>
+        <br />For: 
+        <%= link_to project.title, project_path(project) %> / 
+        <%= link_to phase.title, phase_path(phase) %> / 
+        <strong><%= task.title %></strong>
+        <% end %>
+      </span>
+
+      </div>
+    </div><!-- End Right -->
+  </div>
+</div>

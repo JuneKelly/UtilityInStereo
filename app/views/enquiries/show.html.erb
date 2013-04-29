@@ -1,0 +1,24 @@
+<div class="row-fluid">
+  <header>
+    <h1>Enquiry</h1>
+  </header>
+  <div class="item-box">
+    <h2>From: <%= @enquiry.name %></h2>
+    <h2>Email: <%= @enquiry.email %></h2>
+    <div class="message-content">
+      <%=raw sanitize(simple_format(@enquiry.message), tags: %w(br p) ) %>
+    </div>
+    <p class="">
+      Recieved On: <%= @enquiry.created_at.strftime("%Y-%m-%d") %> 
+    </p>
+    <div class="actions">
+      <%= link_to 'Delete', enquiry_path(@enquiry), method: :delete,
+                  data: { confirm: "Are You Sure?"},
+                  :class => 'btn btn-danger' %>
+    </div>
+  </div>
+  <p>
+    <br />
+    <%= link_to "<< Back to Enquiries", enquiries_path %>
+  </p>
+</div>

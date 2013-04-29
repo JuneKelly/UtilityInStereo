@@ -1,0 +1,50 @@
+<div class="row-fluid">  
+  <div>
+    <h1>Done Projects</h1>
+  </div>
+  <div class="projects-list">
+    <% @projects.each do |project| %>
+      <div class="row-fluid project-short item-box">
+        <header>
+          <h2>
+            <del><%= link_to project.title, project_path(project),
+                  class: "done-text" %>
+            </del>
+          </h2>
+        </header>
+        <div class="project-misc  span11">
+          <span class="with-client">with <h3><small><%= link_to project.client.name, 
+                          client_path(project.client) %></small></h3></span>
+          <span>
+            <% if project.is_done %>
+              Finished! :)
+            <% else %>
+              Not finished :(
+            <% end %>
+          </span>
+          <span>
+            Quotation: <%= project.quotation %>
+            <% if project.is_paid_in_full %>
+              (fully paid)
+            <% else %>
+              (not fully paid)
+            <% end %>
+          </span>
+          <span>
+            Deadline: <%= project.deadline %>
+          </span>
+          <span>
+            Deposit: <%= project.deposit %>
+            <% if project.deposit_paid %>
+              (paid)
+            <% else %>
+              (not paid)
+            <% end %>
+          </span>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to "Show Active Projects", projects_path,
+          class: "btn btn-primary pull-right" %>
+  </div>
+</div>

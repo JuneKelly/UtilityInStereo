@@ -1,0 +1,49 @@
+<div class="row-fluid">
+  <h1>Edit Phase</h1>
+  <div class="span8 phase-form">
+    <%= form_for @phase do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </div>
+
+      <div class="field">
+        <%= f.label "Done ?" %>
+        <%= f.check_box :is_done, :class => "check-styled" %>
+        <small>(is this phase done and complete?)</small>
+      </div>
+
+      <div class="field">
+        <%= f.label :details %>
+        <%= f.text_area :details, cols: 40, rows: 6 %>
+      </div>
+
+      <div class="field">
+        <%= f.label "Charging flat rate ?" %>
+        <%= f.check_box :is_flat_rate, :class => "check-styled" %>
+        <small>(are you charging a flat rate for this phase?)</small>
+      </div>
+
+      <div class="field">
+        <%= f.label :flat_rate %>
+        <%= f.number_field :flat_rate %>
+      </div>
+
+      <div class="field">
+        <%= f.label :due_date %>
+        <small>(estimated date of completion)</small>
+        <%= f.text_field :due_date, :class => "datepicker" %>
+      </div>
+
+      <div class="actions input-append">
+        <%= f.submit 'Save',  class: "btn btn-large btn-primary" %>
+        <%= link_to 'Cancel', phase_path(@phase), class: "btn btn-large" %>
+        <%= link_to 'Delete', phase_path(@phase), method: :delete,
+                    data: { confirm: "Are You Sure?"},
+                    :class => 'btn btn-large btn-danger' %>
+      </div>
+    <% end %>
+  </div>
+</div>

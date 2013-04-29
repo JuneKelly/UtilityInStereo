@@ -1,0 +1,29 @@
+<div class="row-fluid">
+  <div class="span7">
+  <h1>Add Contact Details</h1>
+  <%= form_for [@client, @contact] do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <div class="field">
+      <%= f.label :name %> <small>(of the person)</small>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :role %> <small>(Drummer? Guitarist? Manager?)</small>
+      <%= f.text_field :role %>
+    </div>
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+    <div class="field">
+      <%= f.label :phone %>
+      <%= f.text_field :phone %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Create',  class: "btn btn-large btn-primary" %>
+      <%= link_to 'Cancel', client_path(@contact.client), class: "btn btn-large" %>
+    </div>
+  <% end %><!-- END Form -->
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="row-fluid">
+  <h1>Edit Event: <%= @event.title %></h1>
+  <div class="span8 event-form">
+    <%= form_for @event do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <% @hours = ['00', '01', '02', '03', '04', '05', '06',
+                  '07', '08', '09', '10', '11', '12', '13', '14',
+                  '15', '16', '17', '18', '19', '20', '21', '22', '23']
+          @minutes = ['00', '05', '10', '15', '20', '25', '30',
+                      '35', '40', '45', '50', '55'] 
+          @current_start_h = @event.start_at.strftime("%H")
+          @current_start_m = @event.start_at.strftime("%M")
+          @current_end_h = @event.end_at.strftime("%H")
+          @current_end_m = @event.end_at.strftime("%M")
+      %>
+
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </div>
+
+      <div class="field">
+        <%= f.label :is_public %>
+        <%= f.check_box :is_public, :class => "check-styled" %>
+        <small>(do you want this event to appear on the public view?)</small>
+      </div>
+
+      <div class="field">
+        <%= f.label :details %>
+        <%= f.text_area :details, cols: 40, rows: 6 %>
+      </div>
+
+      <div class="field">
+        <%= f.label :start_date %> <small>mm/dd/yyyy</small>
+        <%= f.text_field :start_date, :class => "datepicker" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :start_time %>
+        <%= select_tag "start_time_h", 
+                        options_for_select(@hours, @current_start_h),
+                        :class => "time-select" %> : 
+        <%= select_tag "start_time_m", 
+                        options_for_select(@minutes, @current_start_m),
+                        :class => "time-select" %>              
+      </div>
+
+      <div class="field">
+        <%= f.label :end_date %> <small>mm/dd/yyyy</small>
+        <%= f.text_field :end_date, :class => "datepicker" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :end_time %>
+        <%= select_tag "end_time_h", 
+                        options_for_select(@hours, @current_end_h),
+                        :class => "time-select" %> : 
+        <%= select_tag "end_time_m", 
+                        options_for_select(@minutes, @current_end_m),
+                        :class => "time-select" %>              
+      </div>
+      <div class="actions input-append">
+        <%= f.submit 'Save',  class: "btn btn-primary" %>
+        <%= link_to 'Cancel', agenda_path, class: "btn" %>
+        <%= link_to 'Delete Event', event_path(@event), method: :delete,
+                    data: { confirm: "Are You Sure?"},
+                    :class => 'btn btn-danger' %>
+      </div>
+    <% end %>
+  </div>
+</div>

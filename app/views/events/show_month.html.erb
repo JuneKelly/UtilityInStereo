@@ -1,0 +1,9 @@
+<div class="row-fluid">
+  <header id="agenda-header">
+    <h1 class="">Calendar</h1>
+    <%= link_to "New Event", new_event_path, :class => 'pull-right btn btn-success' %>
+  </header>
+  <div class="calendar-container">
+    <%= raw(event_calendar) %>
+  </div>
+</div>

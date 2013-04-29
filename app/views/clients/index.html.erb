@@ -1,0 +1,16 @@
+<div class="row-fluid">
+  <div class="span3">
+    <h1>Clients</h1>
+  </div>
+  <div class="pull-right">
+    <%= link_to "New Client", new_client_path,
+          :class => "btn btn-success" %>
+  </div>
+  
+  <div class="span10 offset2 client-list">
+    <% @clients.each do |client| %>
+      <%= render client %>
+    <% end %>
+  </div>
+  
+</div>

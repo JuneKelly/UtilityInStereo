@@ -1,0 +1,2 @@
+$('div.client-list').append('<%= escape_javascript(render @client) %>');
+$('div#<%= dom_id(@client) %>').effect('highlight');

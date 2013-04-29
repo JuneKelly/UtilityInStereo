@@ -1,0 +1,63 @@
+<div class="row-fluid">
+  <div class="span11 item-box">
+    <h1><%= @client.name %></h1>
+    <div class="client-description span5">
+      <p class="">
+        <%=raw sanitize(simple_format(@client.description), tags: %w(br p) ) %>
+      </p>
+      <div class="client-actions">
+        <p>
+          <p>
+            <em><a href="http://<%= @client.website %>"><%= @client.website %></em>
+          </p>
+        
+        <%= link_to 'New Project', new_client_project_path(@client),
+              :class => 'btn btn-success' %>
+        <%= link_to "Edit", edit_client_path( @client),
+              :class => "btn btn-primary" %>
+        </p>
+      </div>
+    </div>
+    
+    <div class="span6 contact-list">
+      <h2>Contact Details:</h2>
+      <% @contacts.each do |contact| %>
+        <div class="contact-details">
+          <h3><%= contact.name %> <small><%= contact.role %></small></h3>
+          <p>
+            <span>Email: <%= contact.email %></span>
+            <br />
+            <span>Phone: <%= contact.phone %></span>
+          </p>
+        </div>
+      <% end %>
+      <div class="actions">
+        <%= link_to 'Add Contact Details', new_client_contact_path(@client), 
+                    :class => 'btn btn-primary' %>
+      </div>
+    </div>
+    <div class="span11 client-project-list">
+      <h2>Projects:</h2>
+      <% if @projects.empty? %>
+        <small>none</small>
+      <% end %>
+      <% @projects.each do |project| %>
+      <span class="project-link">
+        <% if project.is_done == true %>
+          <strike>
+            <%= link_to project.title, project_path(project), class: "done-text" %>
+          </strike>
+        <% else %> 
+          <%= link_to project.title, project_path(project) %>
+        <% end %>
+      </span>
+      <% end %>
+    </div>
+  </div>
+</div>
+<br />
+<div>
+    <%= link_to "<< Back To Clients", clients_path %>
+</div>
+
+

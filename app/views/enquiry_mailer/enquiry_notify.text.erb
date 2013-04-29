@@ -1,0 +1,10 @@
+You've got a new Enquiry
+========================
+ 
+Hello There!
+Someone by the name of <%=@enquiry.name %>, using the email address 
+<%= @enquiry.email %> has sent you a message:
+
+<%= link_to enquiry_path(@enquiry), enquiry_path(@enquiry) %>
+
+Thanks and have a great day!

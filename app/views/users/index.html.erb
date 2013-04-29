@@ -1,0 +1,52 @@
+<div class="row-fluid">
+  <h1>All Users</h1>
+
+  <div id="user-list" class="item-box">
+    <table class="table">
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Type</th>
+        <th>Active?</th>
+        <th>Last Login</th>
+        <th>Clients</th>
+        <th>Projects</th>
+        <th>Events</th>
+      </tr>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %>
+            <small><%= " (Admin)" if user.is_admin? %></small>
+          </td>
+          <td><%= user.email %></td>
+          <td><%= user.account_type %></td>
+          <td><%= user.is_active %></td>
+          <td><%= user.last_login %></td>
+          <td><%= user.clients.count %></td>
+          <td><%= user.projects.count %></td>
+          <td><%= user.events.count %></td>
+        </tr>
+        
+      <% end %>
+    </table>
+    
+  </div>
+  <div class="stats">
+    <br />
+    <h2>Stats for the week</h2>
+      <strong>New Clients: </strong><%= @new_clients %>
+      <br />
+      <strong>New Contacts: </strong><%= @new_contacts %>
+      <br />
+      <strong>New Projects: </strong><%= @new_projects %>
+      <br />
+      <strong>New Phases: </strong><%= @new_phases %>
+      <br />
+      <strong>New Tasks: </strong><%= @new_tasks %>
+      <br />
+      <strong>New Events: </strong><%= @new_events %>
+      <br />
+      <strong>New Enquiries: </strong><%= @new_enquiries %>
+      <br />
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="row-fluid">
+  <h1>New Task for <%= link_to @phase.title, phase_path(@phase) %></h1>
+  <div class="span6 task-form">
+    <%= form_for [@phase, @task] do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </div>
+
+      <div class="actions input-append">
+        <%= f.submit 'Create',  class: "btn btn-large btn-primary" %>
+        <%= link_to 'Cancel', phase_path(@phase), class: "btn btn-large" %>
+      </div>
+    <% end %>
+  </div>
+</div>

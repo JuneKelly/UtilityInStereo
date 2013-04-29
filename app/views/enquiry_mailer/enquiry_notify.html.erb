@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>You've got a new Enquiry</h1>
+    <p>
+      Hello There!<br />
+      Someone by the name of <%=@enquiry.name %>, using the email address 
+      <%= @enquiry.email %> has sent you a message:<br />
+    </p>
+    <p>
+      <%= link_to enquiry_path(@enquiry), enquiry_path(@enquiry) %>
+    </p>
+    <p>Thanks and have a great day!</p>
+  </body>
+</html>

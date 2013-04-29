@@ -1,0 +1,53 @@
+
+  <div class="row-fluid">
+    <div class="span7">
+      <h1>Edit Client</h1>
+      <%= form_for @client do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="field">
+          <%= f.label :name %><small>(of the artist, band, studio...)</small>
+          <%= f.text_field :name %>
+        </div>
+        <div class="field">
+          <%= f.label :description %>
+          <small>(who are they, where are they from?)</small>
+          <%= f.text_area :description, cols: 40, rows: 6 %>
+        </div>
+        <div class="field">
+          <%= f.label :website %><small>(their primary website)</small>
+          <%= f.text_field :website %>
+        </div>
+        <div class="actions input-append">
+          <p>
+          <%= f.submit 'Save', class: "btn btn-large btn-success" %>
+          <%= link_to "Delete", client_path(@client), 
+                          method: :delete, data: { confirm: "Are You Sure?"},
+                          :class => "btn btn-large btn-danger" %>
+          <%= link_to 'Cancel', client_path(@client), class: "btn btn-large" %>
+          </p>
+        </div>
+      <% end %>
+      <div class="row-fluid contact-list">
+        <h2>Contact Details:</h2>
+        <% @client.contacts.each do |contact| %>
+          <div class="contact-details">
+            <h3><%= contact.name %> <small><%= contact.role %></small></h3>
+            <p>
+              <span>Email: <%= contact.email %></span>
+              <br />
+              <span>Phone: <%= contact.phone %></span>
+            </p>
+            <div class="actions">
+              <%= link_to 'Edit', edit_contact_path(contact),
+                    :class => 'btn btn-primary' %>
+              <%= link_to 'Delete Contact Details', contact_path(contact), 
+                    method: :delete, data: { confirm: "Are You Sure?"},
+                    :class => 'btn btn-danger' %>
+            </div>
+          </div>
+          
+        <% end %>
+        
+      </div>
+    </div>
+  </div>

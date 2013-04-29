@@ -1,0 +1,41 @@
+<div class="event row">
+  <div class="event-content span9 item-box">
+
+    <div class="content-left span4">
+      <h3><%= event.title %></h3>
+      <div>
+        <strong>From:</strong>
+        <span>
+          <%= event.start_at.strftime("%Y-%m-%d %H:%M") %>
+        </span>
+      </div>
+      <div>
+        <strong>To:</strong>
+        <span>
+          <%= event.end_at.strftime("%Y-%m-%d %H:%M") %>
+        </span>
+      </div>
+    </div><!-- End Left -->
+
+    <div class="content-right span6">
+      <div class="event-details">
+        <p>
+          <%=raw sanitize(simple_format(event.details), tags: %w(br p) ) %>
+        </p>
+      </div>
+      <div class="event-task">
+      <span>
+        <% if event.task_id %>
+        <% task = event.task %>
+        <% phase = task.phase %>
+        <% project = phase.project %>
+        <br />For: <%= project.title %> / <%= phase.title %> / 
+        <br />
+        <strong><%= task.title %></strong>
+        <% end %>
+      </span>
+
+      </div>
+    </div><!-- End Right -->
+  </div>
+</div>

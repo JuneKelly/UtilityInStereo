@@ -1,0 +1,52 @@
+<%= div_for task do %>
+  <div class="task-content">
+
+    <% if task.is_done %>
+      <del><em><h3>- <%= link_to task.title, task, class: 'done-text' %></h3></em></del>
+    <% else %>
+      <h3>- <%= link_to task.title, task %></h3>
+    <% end %><!-- End Title -->
+
+      <div class="next-event ">
+        <p>
+          <% if task.is_done == false %>
+            <% upcoming_events = current_user.events.
+                            where("task_id = ? AND start_at >= ?",
+                              task.id, todays_date).
+                            order("start_at ASC").limit(1)
+                next_event = upcoming_events[0]
+            %>
+            <% if !next_event.nil? %>
+              <strong>Next Event: </strong>
+                <%= link_to next_event.title, event_path(next_event) %>,
+              <%= next_event.start_at.strftime("%Y-%m-%d %H:%M") %>
+            <% else %>
+              <small>No Events</small>
+            <% end %>
+          <% else %>
+            <small>Done</small>
+          <% end %>
+        </p>
+      </div><!-- End Next Event -->
+
+      <div class="actions pull-right">
+        <div class="btn-group">
+          <% unless task.is_done %>
+            <%= link_to 'Done', task_done_path(task), method: :post, 
+                        :class => 'btn btn-mini btn-success',
+                        data: { confirm: "Really mark this task as done?" } %>
+            <%= link_to 'Make Event', new_task_event_path(task), 
+                        :class => 'btn btn-mini btn-info' %>
+          <% end %>
+          <% if task.phase.project.is_done == false %>
+            <%= link_to 'Edit', edit_task_path(task), 
+                        :class => 'btn btn-mini btn-warning' %>
+            <%= link_to 'Delete', task, method: :delete,
+                        data: { confirm: "Are You Sure?"},
+                        remote: true, # Ajax call
+                        :class => 'btn btn-mini btn-danger' %>
+          <% end %>
+        </div>
+      </div><!-- End Actions -->
+  </div>
+<% end %>
